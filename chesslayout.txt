@@ -1,0 +1,55 @@
+import React, { FC } from 'react';
+import { View, StyleSheet } from 'react-native';
+
+const BOARD_SIZE = 8;
+
+const ChessBoard: FC = () => {
+  const boardRows = [];
+
+  for (let i = 0; i < BOARD_SIZE; i++) {
+    const boardRow = [];
+
+    for (let j = 0; j < BOARD_SIZE; j++) {
+      const isWhiteSquare = (i + j) % 2 === 0;
+
+      boardRow.push(
+        <View
+          key={`${i}-${j}`}
+          style={[
+            styles.square,
+            isWhiteSquare ? styles.whiteSquare : styles.blackSquare,
+          ]}
+        />
+      );
+    }
+
+    boardRows.push(
+      <View key={`row-${i}`} style={styles.boardRow}>
+        {boardRow}
+      </View>
+    );
+  }
+
+  return <View style={styles.container}>{boardRows}</View>;
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'column',
+  },
+  boardRow: {
+    flexDirection: 'row',
+  },
+  square: {
+    width: '12.5%',
+    aspectRatio: 1,
+  },
+  whiteSquare: {
+    backgroundColor: 'white',
+  },
+  blackSquare: {
+    backgroundColor: 'black',
+  },
+});
+
+export default ChessBoard;
